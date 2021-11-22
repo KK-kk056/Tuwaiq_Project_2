@@ -22,6 +22,8 @@ const getUser = (req, res) => {
   res.status(404).send("user not found");
 };
 
+
+
 const addNewUser = (req, res) => {
   const addedUser = {
     name: req.body.name,
@@ -35,18 +37,20 @@ const addNewUser = (req, res) => {
     appointments: req.body.appointments,
   };
 
-  user.push(addedUser);
+  users.push(addedUser);
 
   res.status(201).send(addedUser);
 };
 
+
+
 const updateUser = (req, res) => {
   const userId = req.query.id;
-  user.forEach((elem, i) => {
+  users.forEach((elem, i) => {
     if (i == userId) {
       elem.name = req.body.name;
       elem.id = req.body.id;
-      elem.Password = req.body.Password;
+      elem.password = req.body.password;
       elem.drivingLicenses = req.body.drivingLicenses;
       elem.vehicles = req.body.vehicles;
       elem.vehiclesLnsurance = req.body.vehiclesLnsurance;
