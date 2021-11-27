@@ -1,8 +1,8 @@
 const users = [
   {
     name: "khalid",
-    id: "1085192422",
-    password: "Aa123456",
+    id: "1111100000",
+    password: "123456",
     drivingLicenses: 2,
     vehicles: 2,
     vehiclesLnsurance: 2,
@@ -12,8 +12,8 @@ const users = [
   },
   {
     name: "Ali",
-    id: "1085192420",
-    password: "Cc123456",
+    id: "1111110000",
+    password: "123456",
     drivingLicenses: 1,
     vehicles: 1,
     vehiclesLnsurance: 3,
@@ -23,8 +23,8 @@ const users = [
   },
   {
     name: "Ahmad",
-    id: "1085192424",
-    password: "Bb123456",
+    id: "1111111000",
+    password: "123456",
     drivingLicenses: 3,
     vehicles: 3,
     vehiclesLnsurance: 2,

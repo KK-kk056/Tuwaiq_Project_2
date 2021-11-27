@@ -25,6 +25,7 @@ const getUser = (req, res) => {
 
 
 const addNewUser = (req, res) => {
+  console.log(req.body)
   const addedUser = {
     name: req.body.name,
     id: req.body.id,
@@ -37,6 +38,7 @@ const addNewUser = (req, res) => {
     appointments: req.body.appointments,
   };
 
+  
   users.push(addedUser);
 
   res.status(201).send(addedUser);

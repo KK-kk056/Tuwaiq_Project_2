@@ -1,14 +1,14 @@
-import React from 'react';
+import React from "react";
+import { Col, Row, Image, Container } from "react-bootstrap";
+import foter from'../dashboard/img/foter.jpg'
 
-const Footer = () => {
-	return <div className="App">
- <div className="text-center p-3" style={{backgroundColor: 'rgba(0, 0, 0, 0.2)'}}>
-          © 2020 Copyright:
-          <a  className="text-white" href="https://mdbootstrap.com/">Car.com</a>
-        </div>
-        {/* Copyright */}
 
-	</div>;
-};
+export default function Footer() {
+  return (
+    <div> 
 
-export default Footer;
+      <img id="footer"
+      src={foter}/>
+    </div>
+  );
+}

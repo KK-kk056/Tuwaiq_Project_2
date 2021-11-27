@@ -11,7 +11,7 @@ const {
 
 userRouter.get("/", getAllUser);
 userRouter.get("/:id", getUser);
-userRouter.post("/user", addNewUser);
+userRouter.post("/", addNewUser);
 userRouter.put("/user", updateUser);
 
 module.exports = { userRouter };
