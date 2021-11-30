@@ -6,26 +6,27 @@ const getAllUser = (req, res) => {
 };
 
 const getUser = (req, res) => {
-  console.log(typeof users);
-  const foundUser = users.filter((elem, i) => {
-    return i == req.params.id;
-  });
-
-  /* .find => element || undefined
-    .filter => [element1, element2], || []
-     */
-
-  if (foundUser.length > 0) {
-    res.send(foundUser[0]);
-    return;
-  }
-  res.status(404).send("user not found");
+ console.log(req.body)
+   console.log("Inside get user");
+  const {nationalID, password} = req.body;
+  const foundUser = users.find( (elem) => {
+      return (elem.nationalID == nationalID && elem.password == password)
+  } );
+  if(foundUser)
+    res.send(foundUser);
+  else
+    res.status(404).send("We couldn't find an account matching the email and password you entered. Please check and try again.");
 };
 
 
+const getInformation = (req, res) => {
+  const userif = users.find(({ id }) => id === parseInt (req.body.id));
+  if (!userif) return res.status(404).send("error");
+  res.send(userif);
+};
 
 const addNewUser = (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   const addedUser = {
     name: req.body.name,
     id: req.body.id,
@@ -38,13 +39,10 @@ const addNewUser = (req, res) => {
     appointments: req.body.appointments,
   };
 
-  
   users.push(addedUser);
 
   res.status(201).send(addedUser);
 };
-
-
 
 const updateUser = (req, res) => {
   const userId = req.query.id;
@@ -63,4 +61,10 @@ const updateUser = (req, res) => {
   });
 };
 
-module.exports = { getAllUser, getUser, updateUser, addNewUser };
+module.exports = {
+  getAllUser,
+  getUser,
+  updateUser,
+  addNewUser,
+  getInformation,
+};

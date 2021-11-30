@@ -1,18 +1,45 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import { useLocation, Link } from "react-router-dom";
+import { Navigate } from "react-router";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import {
-  Navbar,
-  Container,
-  Offcanvas,
-  Nav,
-  NavDropdown,
   Form,
   Card,
+  Nav,
+  Offcanvas,
+  Navbar,
+  Container,
   Col,
   Row,
 } from "react-bootstrap";
-import { useNavigate } from "react-router";
-export default function Main2() {
+function Main2() {
+  const { state } = useLocation();
+  const uId = sessionStorage.getItem("userId");
+  console.log("UserID: ", uId);
+  const UserName = state.userName;
+  const nationalID = state.nationalID;
+  const [data, setData] = useState([]);
+  const [drivingLicense, setDrivingLicense] = useState({});
   const nav = useNavigate();
+  useEffect(() => {
+    axios({
+      method: "post",
+      url: "/users/usersinfo",
+      data: {
+        id: uId,
+      },
+    })
+      .then((res) => {
+        console.log(res.data);
+        setData(res.data);
+        setDrivingLicense(res.data.drivingLicenses);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  }, []);
   return (
     <div>
       <Container>
@@ -109,10 +136,10 @@ export default function Main2() {
                 <Card.Text>
                   <Row>
                     <Col>
-                      <h3>Name:</h3>
+                      <h6>Name:{data.name}</h6>
                     </Col>
                     <Col>
-                      <h3> ID unmber:</h3>
+                      <h6> ID number:{data.nationalID}</h6>
                     </Col>
                   </Row>
                 </Card.Text>
@@ -131,7 +158,7 @@ export default function Main2() {
                   placement="end"
                 >
                   <Offcanvas.Header closeButton>
-                    <Offcanvas.Title >
+                    <Offcanvas.Title>
                       Tawakkalna
                       <img
                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9z1qQSwtKWl76KuEIBhaLIu5q95TZRiRq7w&usqp=CAU"
@@ -163,7 +190,6 @@ export default function Main2() {
                       <Nav.Link href="#action2" id="hover">
                         Organ Donation
                       </Nav.Link>
-                    
                     </Nav>
                     <Form className="d-flex"></Form>
                   </Offcanvas.Body>
@@ -176,3 +202,4 @@ export default function Main2() {
     </div>
   );
 }
+export default Main2;

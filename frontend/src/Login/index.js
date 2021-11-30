@@ -1,40 +1,47 @@
-import React, { Component } from "react";
-// import { Container } from "react-bootstrap"
-import { useNavigate } from "react-router";
-import { useState } from "react";
+
 import axios from "axios";
-export default function Login() {
-  const nav = useNavigate();
-  const [id, setID] = useState("");
+import swal from 'sweetalert2'
+import React, { useState } from "react";
+import { useNavigate,} from "react-router-dom";
+
+function Login() {
+  const [nationalID, setNationalid] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  function form() {
-    return id && password;
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-
+  function handleSubmit(e) {
+    e.preventDefault();
+    const data = {
+      nationalID: nationalID,
+      password: password,
+    };
     axios
-      .post("http://localhost:5000/users", {
-        id: id,
+      .post("/users/login", {
+        nationalID: nationalID,
         password: password,
       })
-      .then((response) => {
-        if (id === "" || password === "") {
-        } else if (
-          id === response.data.id &&
-          password === response.data.password
-        ) {
-          nav("/home");
-        }
+      .then((res) => {
+        console.log(res);
+        console.log(res.data.nationalID);
+        sessionStorage.setItem("userId", res.data.id);
+        navigate("/home", { state: { id: res.data.id } });
+        swal.fire(
+          "You are logged in successfully",
+          'You clicked the button!',
+          'success'
+        )
+      
       })
       .catch((err) => {
-        // console.log(err.response.data);
-        alert("Erorr")
+        console.log(err);
+        swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+          footer: '<a href="">Why do I have this issue?</a>'
+        })
       });
-  }
-  return (
+  }return (
     <div>
       <form className="form" onSubmit={handleSubmit}>
         <h3>Login</h3>
@@ -50,8 +57,8 @@ export default function Login() {
             type="text"
             className="form-control"
             placeholder="Enter your ID`"
-            value={id}
-            onChange={(event) => setID(event.target.value)}
+            value={nationalID}
+            onChange={(event) => setNationalid(event.target.value)}
           />
         </div>
 
@@ -74,7 +81,7 @@ export default function Login() {
           type="submit"
           id="bg"
           className="btn btn- btn-block"
-          value={form()}
+          
         >
           Login
         </button>
@@ -82,3 +89,4 @@ export default function Login() {
     </div>
   );
 }
+export default Login;

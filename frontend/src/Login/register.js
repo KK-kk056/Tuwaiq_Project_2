@@ -1,15 +1,14 @@
 import React from "react";
-// import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import axios from "axios";
+import swal from "sweetalert2";
 
 export default function Register() {
   const nav = useNavigate();
   const [name, setName] = useState("");
   const [id, setID] = useState("");
   const [password, setPassword] = useState("");
-// setPassword(e.target.value)
   function form() {
     return name && id && password;
   }
@@ -25,11 +24,14 @@ export default function Register() {
       })
       .then((response) => {
         console.log(response.data);
-        alert("User has been registered successfully")
+        swal.fire(
+          "User has been registered successfully",
+          "You clicked the button!",
+          "success"
+        );
       })
       .catch((err) => {
         console.log(err.response.data);
-      
       });
   }
   return (
@@ -46,7 +48,9 @@ export default function Register() {
           type="name"
           className="form-control"
           placeholder="Enter your name"
-          value={name} onChange={(e) => setName(e.target.value)}/>
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
       </div>
 
       <div className="form-group">
@@ -55,7 +59,9 @@ export default function Register() {
           type="text"
           className="form-control"
           placeholder="Enter your ID`"
-          value={id} onChange={(e) => setID(e.target.value)}/>
+          value={id}
+          onChange={(e) => setID(e.target.value)}
+        />
       </div>
 
       <div className="form-group">
@@ -63,8 +69,9 @@ export default function Register() {
         <input
           type="password"
           className="form-control"
-          placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)}
-
+          placeholder="Enter password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
 

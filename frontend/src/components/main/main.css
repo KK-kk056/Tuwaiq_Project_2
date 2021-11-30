@@ -15,8 +15,8 @@
 #img1{
     background-color: rgba(0, 128, 0, 0.719);
 }
-#card:hover{
-    background-color:	#868c9c;
+.card:hover{
+    background-color:rgba(128, 128, 128, 0.178);
     
 }
 
